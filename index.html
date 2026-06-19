@@ -431,6 +431,42 @@
             color: var(--accent-orange);
         }
 
+        /* ===== KODE DART ===== */
+        .dart-code-container {
+            background: #0a0e14;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            padding: 18px 20px 14px;
+            margin-top: 10px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .dart-code-container pre {
+            margin: 0;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+        .dart-code-container .comment {
+            color: var(--text-muted);
+        }
+        .dart-code-container .keyword {
+            color: var(--accent-cyan);
+        }
+        .dart-code-container .string {
+            color: var(--accent-green);
+        }
+        .dart-code-container .class-name {
+            color: var(--accent-orange);
+        }
+        .dart-code-container .function {
+            color: var(--accent-blue);
+        }
+
         /* ===== EXPLANATION GRID ===== */
         .explanation-grid {
             display: grid;
@@ -643,6 +679,222 @@
                 <div class="terminal-body" id="log-body">
                     <!-- logs will be injected here -->
                 </div>
+            </div>
+        </div>
+
+        <!-- ===== KODE DART CLASS ===== -->
+        <div class="cyber-card" style="margin-bottom: 40px;">
+            <div class="card-title"><span>KODE DART</span> CLASS OOP</div>
+            <div class="dart-code-container">
+                <pre>
+<span class="comment">// ============================================================</span>
+<span class="comment">// Nama Anggota Kelompok:</span>
+<span class="comment">// 1. Herly Afrizal (NIM: 251410002)</span>
+<span class="comment">// 2. Marta Saputra (NIM: 251410020)</span>
+<span class="comment">// Topik: Sistem Pelaporan Kerusakan Perangkat Laboratorium</span>
+<span class="comment">//        (Penerapan Bab 10 OOP)</span>
+<span class="comment">// ============================================================</span>
+
+<span class="keyword">import</span> <span class="string">'dart:core'</span>;
+
+<span class="comment">// ---------- Kelas Induk (Base Class) ----------</span>
+<span class="comment">// Menerapkan ENKAPSULASI</span>
+<span class="keyword">class</span> <span class="class-name">Perangkat</span> {
+  <span class="keyword">String</span> kodeInventaris;
+  <span class="keyword">String</span> nama;
+  <span class="keyword">String</span> _status; <span class="comment">// private (enkapsulasi)</span>
+  <span class="keyword">String</span>? _pelaporAktif;
+
+  <span class="class-name">Perangkat</span>(<span class="keyword">this</span>.kodeInventaris, <span class="keyword">this</span>.nama, <span class="keyword">this</span>._status) {
+    _pelaporAktif = <span class="keyword">null</span>;
+  }
+
+  <span class="keyword">String</span> get status => _status;
+  <span class="keyword">String</span>? get pelaporAktif => _pelaporAktif;
+
+  <span class="keyword">bool</span> <span class="function">laporkan</span>(<span class="keyword">String</span> namaPelapor) {
+    <span class="keyword">if</span> (_status == <span class="string">'Tersedia'</span>) {
+      _status = <span class="string">'Rusak'</span>;
+      _pelaporAktif = namaPelapor;
+      <span class="keyword">return</span> <span class="keyword">true</span>;
+    }
+    <span class="keyword">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keyword">bool</span> <span class="function">selesaikan</span>() {
+    <span class="keyword">if</span> (_status == <span class="string">'Rusak'</span> || _status == <span class="string">'Dalam Perbaikan'</span>) {
+      _status = <span class="string">'Tersedia'</span>;
+      _pelaporAktif = <span class="keyword">null</span>;
+      <span class="keyword">return</span> <span class="keyword">true</span>;
+    }
+    <span class="keyword">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keyword">void</span> <span class="function">tampilkanInfo</span>() {
+    print(<span class="string">'Kode Inventaris: $kodeInventaris'</span>);
+    print(<span class="string">'Nama Perangkat : $nama'</span>);
+    print(<span class="string">'Status         : $_status'</span>);
+    <span class="keyword">if</span> (_pelaporAktif != <span class="keyword">null</span>) {
+      print(<span class="string">'Pelapor        : $_pelaporAktif'</span>);
+    }
+  }
+}
+
+<span class="comment">// ---------- Kelas Turunan (Inheritance) ----------</span>
+<span class="keyword">class</span> <span class="class-name">Komputer</span> <span class="keyword">extends</span> <span class="class-name">Perangkat</span> {
+  <span class="keyword">String</span> spesifikasi;
+  <span class="keyword">int</span> ramGB;
+
+  <span class="class-name">Komputer</span>(<span class="keyword">String</span> kode, <span class="keyword">String</span> nama, <span class="keyword">String</span> status, <span class="keyword">this</span>.spesifikasi, <span class="keyword">this</span>.ramGB)
+      : <span class="keyword">super</span>(kode, nama, status);
+
+  @<span class="keyword">override</span>
+  <span class="keyword">void</span> <span class="function">tampilkanInfo</span>() {
+    print(<span class="string">'--- [Info Komputer] ---'</span>);
+    <span class="keyword">super</span>.tampilkanInfo();
+    print(<span class="string">'Spesifikasi : $spesifikasi'</span>);
+    print(<span class="string">'RAM         : $ramGB GB'</span>);
+  }
+}
+
+<span class="keyword">class</span> <span class="class-name">Proyektor</span> <span class="keyword">extends</span> <span class="class-name">Perangkat</span> {
+  <span class="keyword">int</span> lumen;
+  <span class="keyword">String</span> resolusi;
+
+  <span class="class-name">Proyektor</span>(<span class="keyword">String</span> kode, <span class="keyword">String</span> nama, <span class="keyword">String</span> status, <span class="keyword">this</span>.lumen, <span class="keyword">this</span>.resolusi)
+      : <span class="keyword">super</span>(kode, nama, status);
+
+  @<span class="keyword">override</span>
+  <span class="keyword">void</span> <span class="function">tampilkanInfo</span>() {
+    print(<span class="string">'--- [Info Proyektor] ---'</span>);
+    <span class="keyword">super</span>.tampilkanInfo();
+    print(<span class="string">'Lumen       : $lumen'</span>);
+    print(<span class="string">'Resolusi    : $resolusi'</span>);
+  }
+}
+
+<span class="keyword">class</span> <span class="class-name">Printer</span> <span class="keyword">extends</span> <span class="class-name">Perangkat</span> {
+  <span class="keyword">String</span> tipe;
+  <span class="keyword">int</span> kecepatanPpm;
+
+  <span class="class-name">Printer</span>(<span class="keyword">String</span> kode, <span class="keyword">String</span> nama, <span class="keyword">String</span> status, <span class="keyword">this</span>.tipe, <span class="keyword">this</span>.kecepatanPpm)
+      : <span class="keyword">super</span>(kode, nama, status);
+
+  @<span class="keyword">override</span>
+  <span class="keyword">void</span> <span class="function">tampilkanInfo</span>() {
+    print(<span class="string">'--- [Info Printer] ---'</span>);
+    <span class="keyword">super</span>.tampilkanInfo();
+    print(<span class="string">'Tipe        : $tipe'</span>);
+    print(<span class="string">'Kecepatan   : $kecepatanPpm ppm'</span>);
+  }
+}
+
+<span class="comment">// ---------- Kelas Pelapor ----------</span>
+<span class="keyword">class</span> <span class="class-name">Pelapor</span> {
+  <span class="keyword">String</span> nama;
+  <span class="keyword">String</span> nik;
+  <span class="keyword">int</span> _jumlahLaporanAktif = <span class="keyword">0</span>;
+  <span class="keyword">List</span><<span class="keyword">String</span>> _laporanAktif = [];
+
+  <span class="class-name">Pelapor</span>(<span class="keyword">this</span>.nama, <span class="keyword">this</span>.nik);
+
+  <span class="keyword">int</span> get jumlahLaporanAktif => _jumlahLaporanAktif;
+  <span class="keyword">List</span><<span class="keyword">String</span>> get laporanAktif => <span class="keyword">List</span>.unmodifiable(_laporanAktif);
+
+  <span class="keyword">Map</span><<span class="keyword">String</span>, <span class="keyword">dynamic</span>> <span class="function">buatLaporan</span>(<span class="class-name">Perangkat</span> perangkat) {
+    <span class="keyword">if</span> (_jumlahLaporanAktif >= <span class="keyword">2</span>) {
+      <span class="keyword">return</span> {
+        <span class="string">'success'</span>: <span class="keyword">false</span>,
+        <span class="string">'message'</span>: <span class="string">'Batas maksimal 2 laporan aktif per pelapor.'</span>
+      };
+    }
+    <span class="keyword">if</span> (perangkat.status != <span class="string">'Tersedia'</span>) {
+      <span class="keyword">return</span> {
+        <span class="string">'success'</span>: <span class="keyword">false</span>,
+        <span class="string">'message'</span>: <span class="string">'Perangkat ${perangkat.nama} sedang tidak tersedia.'</span>
+      };
+    }
+    <span class="keyword">bool</span> berhasil = perangkat.laporkan(<span class="keyword">this</span>.nama);
+    <span class="keyword">if</span> (berhasil) {
+      _jumlahLaporanAktif++;
+      _laporanAktif.add(perangkat.kodeInventaris);
+      <span class="keyword">return</span> {
+        <span class="string">'success'</span>: <span class="keyword">true</span>,
+        <span class="string">'message'</span>: <span class="string">'Laporan berhasil! $nama melaporkan ${perangkat.nama}.'</span>
+      };
+    }
+    <span class="keyword">return</span> {<span class="string">'success'</span>: <span class="keyword">false</span>, <span class="string">'message'</span>: <span class="string">'Gagal melaporkan perangkat.'</span>};
+  }
+
+  <span class="keyword">Map</span><<span class="keyword">String</span>, <span class="keyword">dynamic</span>> <span class="function">selesaikanLaporan</span>(<span class="class-name">Perangkat</span> perangkat) {
+    <span class="keyword">if</span> (perangkat.status == <span class="string">'Rusak'</span> || perangkat.status == <span class="string">'Dalam Perbaikan'</span>) {
+      <span class="keyword">int</span> idx = _laporanAktif.indexOf(perangkat.kodeInventaris);
+      <span class="keyword">if</span> (idx != -<span class="keyword">1</span>) {
+        _laporanAktif.removeAt(idx);
+        _jumlahLaporanAktif--;
+      }
+      <span class="keyword">bool</span> berhasil = perangkat.selesaikan();
+      <span class="keyword">if</span> (berhasil) {
+        <span class="keyword">return</span> {
+          <span class="string">'success'</span>: <span class="keyword">true</span>,
+          <span class="string">'message'</span>: <span class="string">'Perangkat ${perangkat.nama} telah diperbaiki.'</span>
+        };
+      }
+    }
+    <span class="keyword">return</span> {
+      <span class="string">'success'</span>: <span class="keyword">false</span>,
+      <span class="string">'message'</span>: <span class="string">'Perangkat ${perangkat.nama} tidak dalam status rusak.'</span>
+    };
+  }
+
+  <span class="keyword">void</span> <span class="function">tampilkanInfo</span>() {
+    print(<span class="string">'Nama Pelapor  : $nama'</span>);
+    print(<span class="string">'NIK           : $nik'</span>);
+    print(<span class="string">'Laporan Aktif : $_jumlahLaporanAktif perangkat'</span>);
+    <span class="keyword">if</span> (_laporanAktif.isNotEmpty) {
+      print(<span class="string">'Daftar kode   : ${_laporanAktif.join(', ')}'</span>);
+    }
+  }
+}
+
+<span class="comment">// ---------- Kelas LaporanKerusakan (Transaksi) ----------</span>
+<span class="keyword">class</span> <span class="class-name">LaporanKerusakan</span> {
+  <span class="keyword">String</span> idLaporan;
+  <span class="class-name">Pelapor</span> pelapor;
+  <span class="class-name">Perangkat</span> perangkat;
+  <span class="keyword">DateTime</span> tanggalLapor;
+  <span class="keyword">DateTime</span>? tanggalSelesai;
+  <span class="keyword">String</span> deskripsi;
+  <span class="keyword">bool</span> isSukses = <span class="keyword">false</span>;
+
+  <span class="class-name">LaporanKerusakan</span>(<span class="keyword">this</span>.idLaporan, <span class="keyword">this</span>.pelapor, <span class="keyword">this</span>.perangkat, <span class="keyword">this</span>.deskripsi)
+      : tanggalLapor = <span class="class-name">DateTime</span>.now();
+
+  <span class="keyword">void</span> <span class="function">selesaikanLaporan</span>() {
+    tanggalSelesai = <span class="class-name">DateTime</span>.now();
+    isSukses = <span class="keyword">true</span>;
+  }
+
+  <span class="keyword">void</span> <span class="function">tampilkanDetail</span>() {
+    <span class="keyword">String</span> tglLapor = tanggalLapor.toLocal().toString().split(<span class="string">' '</span>)[<span class="keyword">0</span>];
+    <span class="keyword">String</span> tglSelesai =
+        tanggalSelesai != <span class="keyword">null</span>
+            ? tanggalSelesai!.toLocal().toString().split(<span class="string">' '</span>)[<span class="keyword">0</span>]
+            : <span class="string">'Belum selesai'</span>;
+    print(<span class="string">'=================================================='</span>);
+    print(<span class="string">'          NOTA LAPORAN KERUSAKAN PERANGKAT         '</span>);
+    print(<span class="string">'=================================================='</span>);
+    print(<span class="string">'ID Laporan   : $idLaporan'</span>);
+    print(<span class="string">'Pelapor      : ${pelapor.nama} (${pelapor.nik})'</span>);
+    print(<span class="string">'Perangkat    : ${perangkat.nama} [${perangkat.kodeInventaris}]'</span>);
+    print(<span class="string">'Tanggal Lapor: $tglLapor'</span>);
+    print(<span class="string">'Tanggal Selesai: $tglSelesai'</span>);
+    print(<span class="string">'Deskripsi    : ${deskripsi.isNotEmpty ? deskripsi : '-'}'</span>);
+    print(<span class="string">'Status       : ${isSukses ? 'SELESAI ✅' : 'AKTIF ⏳'}'</span>);
+    print(<span class="string">'=================================================='</span>);
+  }
+}
+                </pre>
             </div>
         </div>
 
