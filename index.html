@@ -551,6 +551,25 @@
             height: auto;
         }
 
+        /* Box untuk gambar */
+        .image-box {
+            background: #0a0e14;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Gaya untuk gambar di dalam box */
+        .gambar-box {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+
         .pseudocode-box {
             background: #0a0e14;
             border: 1px solid var(--border-color);
@@ -999,28 +1018,18 @@
             </div>
         </div>
 
-        <!-- Tab Algoritma Pelaporan (diperbarui) -->
+        <!-- ===== TAB ALGORITMA PELAPORAN (dengan gambar asli) ===== -->
         <div class="diag-tab-content" id="diag-report">
             <p style="margin-bottom: 20px; color: var(--text-dim);">
                 Flowchart dan pseudocode untuk alur pelaporan kerusakan perangkat laboratorium.
             </p>
-            <!-- Flowchart gambar -->
-            <div class="mermaid-container">
-                <div class="mermaid">
-                    flowchart TD
-                        A[Mulai] --> B[/Input: Form Laporan Kerusakan/]
-                        B --> C[Validasi Data]
-                        C --> D{Data Lengkap?}
-                        D -- Tidak --> E[/Tampilkan Pesan Error/]
-                        E --> B
-                        D -- Ya --> F[Proses OOP: Buat Objek Laporan]
-                        F --> G[Simpan Objek ke Database]
-                        G --> H[Update Status => Dilaporkan]
-                        H --> I[/Output: Notifikasi Sukses + ID Laporan/]
-                        I --> J[Selesai]
-                </div>
+
+            <!-- Box Gambar -->
+            <div class="image-box">
+                <img src="deepseek_mermaid_20260622_94dfcf.png" class="gambar-box" alt="Flowchart Algoritma Pelaporan" />
             </div>
-            <!-- Pseudocode -->
+
+            <!-- Box Pseudocode -->
             <div class="pseudocode-box">
                 <span class="pc-comment">// ALGORITMA SistemPelaporanKerusakan</span><br>
                 <span class="pc-comment">// { Menangani pelaporan kerusakan perangkat lab dengan pendekatan OOP }</span><br>
@@ -1110,7 +1119,6 @@
                 &nbsp;&nbsp;laporanBaru.simpan()<br>
                 <br>
                 &nbsp;&nbsp;<span class="pc-comment">// 3. Update status (opsional, karena konstruktor sudah set "Dilaporkan")</span><br>
-                &nbsp;&nbsp;<span class="pc-comment">//    Namun untuk memperjelas alur, kita panggil methodnya.</span><br>
                 &nbsp;&nbsp;laporanBaru.updateStatus(<span class="pc-string">"Dilaporkan"</span>)<br>
                 <br>
                 &nbsp;&nbsp;<span class="pc-comment">// === OUTPUT ===</span><br>
